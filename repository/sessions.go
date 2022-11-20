@@ -100,8 +100,6 @@ func (u *SessionsRepository) CheckExpireToken(token string) (model.Session, erro
 		return model.Session{}, errors.New("Token is Expired!")
 	}
 
-	// hapus data session --> apakah ini ada functionnya??
-
 	return session, nil// TODO: replace this
 }
 

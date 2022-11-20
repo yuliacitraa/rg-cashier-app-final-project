@@ -69,7 +69,7 @@ func (u *CartRepository) AddCart(cart model.Cart) error {
 
 	listCart = append(listCart, cart)
 
-	jsonData, err := json.Marshal(cart)
+	jsonData, err := json.Marshal(listCart)
 	if err != nil {
 		return err
 	}

@@ -19,20 +19,22 @@ func (api *API) Register(w http.ResponseWriter, r *http.Request) {
 	
 	// Handle request if creds is empty send response code 400, and message "Username or Password empty"
 	// TODO: answer here
-	err := json.NewDecoder(r.Body).Decode(&creds)
-    if err != nil {
+	// err := json.NewDecoder(r.Body).Decode(&creds)
+    if err := r.ParseForm(); err != nil {
         w.WriteHeader(http.StatusBadRequest)
         json.NewEncoder(w).Encode(model.ErrorResponse{Error: "Username or Password empty"})
         return
     }
     
-    if creds.Username =="" || creds.Password =="" {
+	username := r.FormValue("username")
+	password := r.FormValue("password")
+    if username =="" || password =="" {
         w.WriteHeader(http.StatusBadRequest)
         json.NewEncoder(w).Encode(model.ErrorResponse{Error: "Username or Password empty"})
         return
     }
 
-	err = api.usersRepo.AddUser(creds)
+	err := api.usersRepo.AddUser(creds)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(model.ErrorResponse{Error: "Internal Server Error"})
@@ -46,7 +48,6 @@ func (api *API) Register(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(model.ErrorResponse{Error: "Internal Server Error"})
 		return
 	}
-
 
 	var data = map[string]string{"name": creds.Username, "message": "register success!"}
 	err = tmpl.Execute(w, data)

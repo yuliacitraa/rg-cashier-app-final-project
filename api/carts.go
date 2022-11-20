@@ -60,16 +60,16 @@ func (api *API) AddCart(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	uname := ""
+	username := ""
 	read, _ := api.sessionsRepo.ReadSessions()
 	for _, v := range read {
 		if v.Token == session {
-			uname = v.Token
+			username = v.Token
 		}
 	}
 
 	cart := model.Cart{
-		Name:       uname,
+		Name:       username,
 		Cart:       list,
 		TotalPrice: totalPrice,
 	}
