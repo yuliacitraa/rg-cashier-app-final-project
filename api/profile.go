@@ -1,8 +1,6 @@
 package api
 
 import (
-	"a21hc3NpZ25tZW50/model"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -12,47 +10,15 @@ import (
 )
 
 func (api *API) ImgProfileView(w http.ResponseWriter, r *http.Request) {
-	// fileBytes, err := ioutil.ReadFile("./assets/images/img-avatar.png")
-	// if err != nil {
-	// 	w.WriteHeader(http.StatusNotFound)
-	// 	w.Write([]byte("File not found"))
-	// 	return
-	// }
-	// w.WriteHeader(http.StatusOK)
-	// w.Header().Set("Content-Type", "application/octet-stream")
-	// w.Write(fileBytes)
-	_, err := r.Cookie("session_token")
-	if err != nil {
-		if err == http.ErrNoCookie {
-			w.WriteHeader(http.StatusUnauthorized)
-			error := model.ErrorResponse{
-				Error: "http: named cookie not present",
-			}
-
-			JsonData, err := json.Marshal(error)
-			if err != nil {
-				panic(err)
-			}
-			w.Write(JsonData)
-			return
-		}
-		// Untuk jenis error lainnya, return bad request status
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
-
-	// View with response image `img-avatar.png` from path `assets/images`
-
-	fileBytes, err := ioutil.ReadFile("./assets/images/img-avatar.png") // membaca file image menjadi bytes
+	fileBytes, err := ioutil.ReadFile("./assets/images/img-avatar.png")
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("File not found"))
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Header().Set("Content-Type", "image/jpeg")
-	w.Write(fileBytes) // menampilkan image sebagai response
-	// TODO: answer here
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Write(fileBytes)
 }
 
 func (api *API) ImgProfileUpdate(w http.ResponseWriter, r *http.Request) {
@@ -98,4 +64,27 @@ func (api *API) ImgProfileUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	api.dashboardView(w, r)
+
+}
+
+
+func (api *API) HandleImage(w http.ResponseWriter, r *http.Request) {
+    imageName := r.URL.Query().Get("image-name") // mengambil nama image dari query url
+    dir, err := os.Getwd()
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+	absPath := filepath.Join(dir, "assets/images", imageName)
+	fmt.Println(absPath)
+	fileBytes, err := ioutil.ReadFile(absPath) // membaca file image menjadi bytes
+    if err != nil {
+        w.WriteHeader(http.StatusNotFound)
+        w.Write([]byte("File not found"))
+        return
+    }
+    w.WriteHeader(http.StatusOK)
+    w.Header().Set("Content-Type", "application/octet-stream")
+    w.Write(fileBytes) // menampilkan image sebagai response
+    return
 }

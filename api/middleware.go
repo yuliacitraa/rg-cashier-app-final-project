@@ -21,7 +21,7 @@ func (api *API) Auth(next http.Handler) http.Handler {
 
             return
         }
-		sessionToken := c.Value // TODO: replace this
+		sessionToken := c.Value
 
 		sessionFound, err := api.sessionsRepo.CheckExpireToken(sessionToken)
 		if err != nil {

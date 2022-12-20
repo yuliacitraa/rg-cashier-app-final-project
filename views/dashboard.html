@@ -1,108 +1,229 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Dashboard Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
     <script>
-        function displayQty(listData, checkId, qtyId) {
-            var checkBox = document.getElementById(checkId);
-            var qty = document.getElementById(qtyId);
-            if (checkBox.checked == true) {
-                qty.style.display = "block";
-                checkBox.value = listData + "," + qty.value
-            } else {
-                qty.style.display = "none";
-            }
+      function displayQty(listData, checkId, qtyId) {
+        var checkBox = document.getElementById(checkId);
+        var qty = document.getElementById(qtyId);
+        if (checkBox.checked == true) {
+          qty.style.display = "block";
+          checkBox.value = listData + "," + qty.value;
+        } else {
+          qty.style.display = "none";
         }
+      }
     </script>
     <style>
-        .avatar {
-            float: left;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
+      * {
+        font-family: "Poppins", sans-serif;
+      }
 
-        .avatar:hover {
-            background-color: #000;
-            cursor: pointer;
-        }
+      .avatar {
+        float: left;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
 
-        .navbar {
-            width: 100%;
-            overflow: auto;
-        }
+      .avatar:hover {
+        background-color: #000;
+        cursor: pointer;
+      }
 
-        .menu {
-            float: left;
-            text-align: center;
-            padding: 12px;
-            color: #000;
-            text-decoration: none;
-            font-size: 17px;
-        }
+      .navbar {
+        background-color: #669bbc;
+        width: 100%;
+        height: 4rem;
+        position: fixed;
+        margin: 0;
+        top: 0;
+        left: 0;
+      }
+
+      .navbar ul {
+        list-style-type: none;
+        float: right;
+        margin: 0;
+        padding: 0.4rem;
+      }
+
+      .navbar li {
+        float: left;
+        margin-right: 10px;
+      }
+
+      .navbar li label,
+      button {
+        color: black;
+        display: block;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      .navbar li label:hover,
+      button:hover {
+        font-weight: bold;
+        color: #fff;
+        transition: 0.7s;
+      }
+
+      .menu {
+        float: left;
+        text-align: center;
+        padding: 12px;
+        color: #000;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      .container {
+        display: flex;
+      }
+
+      .card {
+        margin: auto;
+        margin-top: 7%;
+        width: 40%;
+        height: auto;
+        padding: 2rem;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+          rgba(0, 0, 0, 0.22) 0px 10px 10px;
+      }
+
+      .button-add {
+        background-color: transparent;
+        padding: 0.6em;
+        width: 10em;
+        font-size: 0.9em;
+        margin: 0px 5px;
+        border: transparent;
+        color: #003049;
+        border-radius: 1em;
+        box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px,
+          rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px,
+          rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px,
+          rgba(0, 0, 0, 0.07) 0px 32px 64px;
+      }
+
+      .button-add:hover {
+        background-color: #669bbc;
+        color: #fff;
+        transition: 0.7s;
+      }
+
+      input {
+        padding: 0.5em;
+        margin: 0.5em;
+        border: transparent;
+        border-bottom: 1px solid black;
+      }
+
+      input:hover {
+        background-color: #deeaf1;
+        border-radius: 1em;
+        transition: 0.5s;
+      }
+
+      .change-profile {
+        margin: auto;
+        margin-top: 7%;
+        width: 40%;
+        height: auto;
+        padding: 2rem;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+          rgba(0, 0, 0, 0.22) 0px 10px 10px;
+      }
+
+      button {
+        background-color: transparent;
+        border: transparent;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <header>
-        <h1>Dashboard Page</h1>
-    </header>
+  <body>
+    <!-- <header>
+      <h1>Dashboard Page</h1>
+    </header> -->
 
     <nav>
-        <form method="post" action="/user/img/update-profile" enctype="multipart/form-data">
-            <div class="navbar">
-                <img src="/user/img/profile" alt="Avatar" class="avatar">
-                <label class="menu">Hello {{.Cart.Name}}</label>
-                <label class="menu">Update Profile: </label>
-                <input type="file" name="file-avatar" required />
-                <input type="submit">
-            </div>
-        </form>
+      <form method="get" action="/user/logout">
+        <div class="navbar">
+          <ul>
+            <li><img src="/user/img/profile" alt="Avatar" class="avatar" /></li>
+            <li><label class="menu">Hello {{.Cart.Name}}</label></li>
+
+            <li><button type="submmit">Logout</button></li>
+          </ul>
+        </div>
+      </form>
     </nav>
 
-    <section>
+    <section class="container">
+      <div class="card">
         <h2>List Product</h2>
         <form method="post" action="/cart/add">
-            {{range $val := .Product}}
-            <input type="checkbox" id="check-{{ .Id }}" name="product"
-                onclick="displayQty('{{ .Id }},{{ .Name }},{{ .Price }}', 'check-{{ .Id }}', 'qty-{{ .Id }}')">
-            <label>{{ .Id }}. {{ .Name }}: Rp. {{ .Price }},-</label>
-            <input type="number" style="display:none" id="qty-{{ .Id }}" value="1" min="1" max="100"
-                onchange="displayQty('{{ .Id }},{{ .Name }},{{ .Price }}', 'check-{{ .Id }}', 'qty-{{ .Id }}')">
-            <br>
-            {{else}}
-            Empty Product
-            {{end}}
-            <button type="submmit">Add to Cart</button>
+          {{range $val := .Product}}
+          <input
+            type="checkbox"
+            id="check-{{ .Id }}"
+            name="product"
+            onclick="displayQty('{{ .Id }},{{ .Name }},{{ .Price }}', 'check-{{ .Id }}', 'qty-{{ .Id }}')"
+          />
+          <label>{{ .Id }}. {{ .Name }}: Rp. {{ .Price }},-</label>
+          <input
+            type="number"
+            style="display: none"
+            id="qty-{{ .Id }}"
+            value="1"
+            min="1"
+            max="100"
+            onchange="displayQty('{{ .Id }},{{ .Name }},{{ .Price }}', 'check-{{ .Id }}', 'qty-{{ .Id }}')"
+          />
+          <br />
+          {{else}} Empty Product {{end}}
+          <button class="button-add" type="submmit" style="margin-top: 2rem">
+            Add to Cart
+          </button>
         </form>
-    </section>
+      </div>
 
-    <section>
+      <div class="card">
         <h2>My Cart</h2>
 
         <ul>
-            {{range $val := .Cart.Cart}}
-            <li>{{ .Name }}
-                <ul>
-                    <li>Price: Rp. {{ .Price }},-</li>
-                    <li>Quantity: {{ .Quantity }}</li>
-                    <li>Total: {{ .Total }}</li>
-                </ul>
-            </li>
-            {{else}}
-            Empty Cart
-            {{end}}
+          {{range $val := .Cart.Cart}}
+          <li>
+            {{ .Name }}
+            <ul>
+              <li>Price: Rp. {{ .Price }},-</li>
+              <li>Quantity: {{ .Quantity }}</li>
+              <li>Total: {{ .Total }}</li>
+            </ul>
+          </li>
+          {{else}} Empty Cart {{end}}
         </ul>
         <p>Total Price Rp. {{.Cart.TotalPrice}},-</p>
+      </div>
     </section>
 
-    <footer>
-        <form method="get" action="/user/logout">
-            <button type="submmit">Logout</button>
-        </form>
+    <footer class="change-profile">
+      <form
+        method="post"
+        action="/user/img/update-profile"
+        enctype="multipart/form-data"
+      >
+        <label class="menu">Update Profile: </label>
+        <input type="file" name="file-avatar" required />
+        <input type="submit" />
+      </form>
     </footer>
-
-</body>
-
+  </body>
 </html>
+
+<!-- <button type="submmit">Logout</button> -->

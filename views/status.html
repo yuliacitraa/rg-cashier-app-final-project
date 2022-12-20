@@ -1,16 +1,74 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Show Message</title>
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-<body>
-    <h1>Hello {{.name}}</h1>
-    <p>{{.message}}</p>
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+      button {
+        background-color: transparent;
+        padding: 0.4em;
+        width: 6em;
+        font-size: 1.2em;
+        margin: 0px 5px;
+        border: transparent;
+        border-radius: 1em;
+        box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px,
+          rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px,
+          rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px,
+          rgba(0, 0, 0, 0.07) 0px 32px 64px;
+      }
 
-    <a href="/page/login">Go to Login Page</a>
-  
-</body>
+      button a {
+        text-decoration: none;
+        color: #003049;
+      }
 
+      button:hover {
+        background-color: #669bbc;
+        transition: 0.7s;
+      }
+
+      button a:hover {
+        color: #fff;
+        transition: 0.7s;
+      }
+
+      .card {
+        margin: auto;
+        margin-top: 5%;
+        width: 30%;
+        padding: 3em;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+          rgba(0, 0, 0, 0.22) 0px 10px 10px;
+      }
+
+      .text {
+        text-align: center;
+      }
+
+      .text button {
+        margin-top: 1em;
+      }
+
+      .card img {
+        width: 100%;
+        margin: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <img src="/image/show_image?image-name=status.png" alt="" />
+      <div class="text">
+        <h1>Hello {{.name}}</h1>
+        <p>{{.message}}</p>
+        <button><a href="/page/login">Login</a></button>
+      </div>
+    </div>
+  </body>
 </html>

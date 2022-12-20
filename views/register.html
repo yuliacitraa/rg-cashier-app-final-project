@@ -1,25 +1,134 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Register User</title>
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-<body>
-    <h1>Register Page</h1>
-    <form method="post" action="/user/register">
-        <label>Username :</label>
-        <input type="text" placeholder="Type username here" name="username" required />
-        <br />
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+      }
 
-        <label>Password :</label>
-        <input type="password" placeholder="Type password here" name="password" required />
-        <br />
+      button {
+        background-color: transparent;
+        padding: 0.4em;
+        width: 6em;
+        font-size: 1em;
+        margin: 0px 5px;
+        border: transparent;
+        border-radius: 1em;
+        box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px,
+          rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px,
+          rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px,
+          rgba(0, 0, 0, 0.07) 0px 32px 64px;
+      }
 
-        <button type="submmit">Submit</button>
-    </form>
+      button a {
+        text-decoration: none;
+        color: #003049;
+      }
 
-    <a href="/page/login">Go to Login Page</a>
-</body>
+      button:hover {
+        background-color: #669bbc;
+        color: #fff;
+        transition: 0.7s;
+      }
 
+      button a:hover {
+        color: #fff;
+        transition: 0.7s;
+      }
+
+      .reg-container {
+        display: flex;
+        text-align: center;
+        margin: auto;
+        margin-top: 10%;
+        width: 55%;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+          rgba(0, 0, 0, 0.22) 0px 10px 10px;
+        padding: 5rem 0rem;
+      }
+
+      .reg-container h1 {
+        color: #003049;
+      }
+
+      .form label {
+        margin-right: 2em;
+      }
+
+      input {
+        padding: 0.5em;
+        margin: 0.5em;
+        border: transparent;
+        border-bottom: 1px solid black;
+      }
+
+      input:hover {
+        background-color: #deeaf1;
+        border-radius: 1em;
+        transition: 0.5s;
+      }
+
+      .btn {
+        margin-top: 1.6em;
+      }
+
+      .reg-bg {
+        width: 40%;
+        padding: 1em;
+      }
+
+      .reg-page {
+        margin: auto;
+        padding: 1em;
+      }
+
+      .reg-page h1 {
+        font-size: 2.5em;
+      }
+
+      img {
+        margin-top: 10%;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="reg-container">
+      <div class="reg-bg">
+        <img src="/image/show_image?image-name=register.jpg" alt="" />
+      </div>
+      <div class="reg-page">
+        <h1>Register Page</h1>
+        <div class="form">
+          <form method="post" action="/user/register">
+            <label>Username</label>
+            <input
+              type="text"
+              placeholder="Type username here"
+              name="username"
+              required
+            />
+            <br />
+
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="Type password here"
+              name="password"
+              required
+            />
+            <br />
+            <div class="btn">
+              <button><a href="/page/login">Login</a></button>
+              <button type="submmit">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -3,18 +3,15 @@ package api
 import (
 	"a21hc3NpZ25tZW50/model"
 	"encoding/json"
+	"fmt"
 
-	// "fmt"
 	"net/http"
 	"strconv"
 	"strings"
-	// "github.com/google/uuid"
 )
 
 func (api *API) AddCart(w http.ResponseWriter, r *http.Request) {
-	// Get username context to struct model.Cart.
-	// username := fmt.Sprintf("%s", r.Context().Value("username")) // TODO: replace this
-	c, err := r.Cookie("session_token")
+	_, err := r.Cookie("session_token")
     if err != nil {
         if err == http.ErrNoCookie {
             w.WriteHeader(http.StatusUnauthorized)
@@ -24,10 +21,8 @@ func (api *API) AddCart(w http.ResponseWriter, r *http.Request) {
         w.WriteHeader(http.StatusUnauthorized)
         return
     }
-    session := c.Value
 
 	err = r.ParseForm()
-	// Check r.Form with key product, if not found then return response code 400 and message "Request Product Not Found".
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
         json.NewEncoder(w).Encode(model.ErrorResponse{Error: "Internal server error"})
@@ -60,13 +55,7 @@ func (api *API) AddCart(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	username := ""
-	read, _ := api.sessionsRepo.ReadSessions()
-	for _, v := range read {
-		if v.Token == session {
-			username = v.Token
-		}
-	}
+	username := fmt.Sprintf("%s", r.Context().Value("username"))
 
 	cart := model.Cart{
 		Name:       username,

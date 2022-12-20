@@ -3,7 +3,6 @@ package api
 import (
 	"a21hc3NpZ25tZW50/model"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"path"
 	"text/template"
@@ -13,13 +12,8 @@ import (
 )
 
 func (api *API) Register(w http.ResponseWriter, r *http.Request) {
-	// Read username and password request with FormValue.
-	creds := model.Credentials{} // TODO: replace this
+	creds := model.Credentials{}
 
-	
-	// Handle request if creds is empty send response code 400, and message "Username or Password empty"
-	// TODO: answer here
-	// err := json.NewDecoder(r.Body).Decode(&creds)
     if err := r.ParseForm(); err != nil {
         w.WriteHeader(http.StatusBadRequest)
         json.NewEncoder(w).Encode(model.ErrorResponse{Error: "Username or Password empty"})
@@ -33,6 +27,9 @@ func (api *API) Register(w http.ResponseWriter, r *http.Request) {
         json.NewEncoder(w).Encode(model.ErrorResponse{Error: "Username or Password empty"})
         return
     }
+
+	creds.Username = username
+	creds.Password = password
 
 	err := api.usersRepo.AddUser(creds)
 	if err != nil {
@@ -61,11 +58,6 @@ func (api *API) Register(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *API) Login(w http.ResponseWriter, r *http.Request) {
-	// Read usernmae and password request with FormValue.
-	
-	
-	// Handle request if creds is empty send response code 400, and message "Username or Password empty"
-	// TODO: answer here
 	if err := r.ParseForm(); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
         json.NewEncoder(w).Encode(model.ErrorResponse{Error: "Internal server error"})
@@ -83,7 +75,6 @@ func (api *API) Login(w http.ResponseWriter, r *http.Request) {
 		Password: password,
 		Username: username,
 	}
-	fmt.Println("credential : " , creds)
 
 	err := api.usersRepo.LoginValid(creds)
 	if err != nil {
@@ -92,9 +83,6 @@ func (api *API) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	
-	// Generate Cookie with Name "session_token", Path "/", Value "uuid generated with github.com/google/uuid", Expires time to 5 Hour.
-	// TODO: answer here
 	sessionToken := uuid.NewString()
     expiresAt := time.Now().Add(5 * time.Hour)
     http.SetCookie(w, &http.Cookie{
@@ -108,15 +96,13 @@ func (api *API) Login(w http.ResponseWriter, r *http.Request) {
 		Token: sessionToken,
 		Username: creds.Username,
         Expiry:   expiresAt,
-	} // TODO: replace this
+	}
 	err = api.sessionsRepo.AddSessions(session)
     w.WriteHeader(http.StatusOK)
 	api.dashboardView(w, r)
 }
 
 func (api *API) Logout(w http.ResponseWriter, r *http.Request) {
-	//Read session_token and get Value:
-	// sessionToken := "" // TODO: replace this
 	c, err := r.Cookie("session_token")
     if err != nil {
         if err == http.ErrNoCookie {
@@ -130,8 +116,6 @@ func (api *API) Logout(w http.ResponseWriter, r *http.Request) {
 
 	api.sessionsRepo.DeleteSessions(session)
 
-	//Set Cookie name session_token value to empty and set expires time to Now:
-	// TODO: answer here
 	http.SetCookie(w, &http.Cookie{
         Name:    "session_token",
         Value:   "",
@@ -152,6 +136,4 @@ func (api *API) Logout(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(model.ErrorResponse{Error: "Internal Server Error"})
 	}
-
-	
 }

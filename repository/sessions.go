@@ -100,7 +100,7 @@ func (u *SessionsRepository) CheckExpireToken(token string) (model.Session, erro
 		return model.Session{}, errors.New("Token is Expired!")
 	}
 
-	return session, nil// TODO: replace this
+	return session, nil
 }
 
 func (u *SessionsRepository) ResetSessions() error {

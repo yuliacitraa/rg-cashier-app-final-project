@@ -1,0 +1,131 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  display: flex;
+  padding: 2rem;
+}
+
+.page1 {
+  margin-top: 10%;
+  width: 50%;
+}
+
+.page1 h1 {
+  font-size: 3rem;
+  color: #003049;
+}
+
+button {
+  background-color: transparent;
+  padding: 0.4em;
+  width: 6em;
+  font-size: 1.2em;
+  margin: 0px 5px;
+  border: transparent;
+  border-radius: 1em;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+button a {
+  text-decoration: none;
+  color: #003049;
+}
+
+button:hover {
+  background-color: #669bbc;
+  transition: 0.7s;
+}
+
+button a:hover {
+  color: #fff;
+  transition: 0.7s;
+}
+
+.page2 {
+  width: 50%;
+}
+
+img {
+  margin-top: 10%;
+  width: 100%;
+}
+
+.reg-container {
+  display: flex;
+  text-align: center;
+  margin: auto;
+  margin-top: 10%;
+  width: 55%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  padding: 5rem 0rem;
+}
+
+.reg-container h1 {
+  color: #003049;
+}
+
+.form {
+  padding-bottom: ;
+}
+
+.form label {
+  margin-right: 2em;
+}
+
+input {
+  padding: 0.5em;
+  margin: 0.5em;
+  border: transparent;
+  border-bottom: 1px solid black;
+}
+
+input:hover {
+  background-color: #deeaf1;
+  border-radius: 1em;
+  transition: 0.5s;
+}
+
+.btn {
+  margin-top: 1.6em;
+}
+
+.reg-bg {
+  width: 40%;
+  padding: 1em;
+}
+
+.reg-page {
+  margin: auto;
+  padding: 1em;
+}
+
+.reg-page h1 {
+  font-size: 2.5em;
+}
+
+.card {
+  margin: auto;
+  margin-top: 5%;
+  width: 30%;
+  padding: 3em;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.text {
+  text-align: center;
+}
+
+.text button {
+  margin-top: 1em;
+}
+
+.card img {
+  width: 100%;
+  margin: auto;
+}
